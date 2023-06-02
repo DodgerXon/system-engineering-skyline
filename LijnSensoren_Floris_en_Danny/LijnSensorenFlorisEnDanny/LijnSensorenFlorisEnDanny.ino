@@ -1,6 +1,8 @@
 #include "Lijnsensoren.h"
 #include "Lijnsensoren.cpp"
 
+#include <QTRSensors.h>
+
 #include <Zumo32U4.h>
 #include <Wire.h>
 

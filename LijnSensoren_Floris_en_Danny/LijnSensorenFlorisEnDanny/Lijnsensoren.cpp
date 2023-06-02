@@ -1,4 +1,7 @@
 #include "Lijnsensoren.h"
+#include <QTRSensors.h>
+
+
 
 void Lijnsensoren::readCalibrated(unsigned int *sensor_values, unsigned char readMode)
 {
