@@ -2,7 +2,6 @@
 #include <Zumo32U4.h>
 
 Zumo32U4IMU imu;
-char report[120];
 // hier include je de library en maak je een object
 
 
