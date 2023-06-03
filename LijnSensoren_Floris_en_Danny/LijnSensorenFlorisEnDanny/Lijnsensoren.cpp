@@ -3,8 +3,7 @@
 
 
 
-void Lijnsensoren::readCalibrated(unsigned int *sensor_values, unsigned char readMode)
-{
+void Lijnsensoren::readCalibrated(unsigned int *sensor_values, unsigned char readMode) {
     int i;
 
     // if not calibrated, do nothing

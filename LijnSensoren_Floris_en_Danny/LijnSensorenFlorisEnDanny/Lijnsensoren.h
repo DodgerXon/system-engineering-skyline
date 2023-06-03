@@ -1,6 +1,6 @@
 #include <QTRSensors.h>
 
-class Lijnsensoren {
+class Lijnsensoren : public QTRSensors {
     
     public:
     void readCalibrated(unsigned int, unsigned char);
