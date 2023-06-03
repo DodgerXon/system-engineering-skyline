@@ -8,8 +8,8 @@
 
 Zumo32U4LineSensors lineSensors;
 
-int Lijnwaardes[aantal_lijnsensoren];
-int aantal_lijnsensoren = 5;
+int Lijnwaardes[5];
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -18,5 +18,5 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  lineSensors.readCalibrated(lijnwaardes);
+  lineSensors.readCalibrated(Lijnwaardes);
 }
