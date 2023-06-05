@@ -18,9 +18,10 @@ public:
   int groen[2] = {0, 2000};
   int rood[2] = {0, 2000};
   int bruin[2] = {0, 2000};
+  int wit[2] = {0, 2000};
   Zumo32U4LineSensors lineSensors;
   Zumo32U4ButtonA ButtonA;
-  
+  Zumo32U4Buzzer buzzer;
 }
 
 #endif

@@ -2,7 +2,7 @@
 
 Line linesensor;
 Line ButtonA;
-
+Line Buzzer;
 
 void setup() {
   Serial.begin(9600);

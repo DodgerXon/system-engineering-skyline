@@ -7,25 +7,44 @@ Line::Line() {
 void Line::setup() {
   lineSensors.initFiveSensors();
 
+  Serial.println("Cilibreer zwart!")
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   findHighestLowest(sensorWaardes, zwart[0], zwart[1]);
+  buzzer.play(">g32>>c32");
 
+  Serial.println("Cilibreer grijs!")
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   findHighestLowest(sensorWaardes, grijs[0], grijs[1]);
+  buzzer.play(">g32>>c32");
 
+  Serial.println("Cilibreer groen!")
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   findHighestLowest(sensorWaardes, groen[0], groen[1]);
+  buzzer.play(">g32>>c32");
 
+  Serial.println("Cilibreer rood!")
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   findHighestLowest(sensorWaardes, rood[0], rood[1]);
+  buzzer.play(">g32>>c32");
 
+  Serial.println("Cilibreer bruin!")
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   findHighestLowest(sensorWaardes, bruin[0], bruin[1]);
+  buzzer.play(">g32>>c32");
+
+  Serial.println("Cilibreer wit!")
+  ButtonA.waitForButton();
+  lineSensors.read(sensorWaardes);
+  findHighestLowest(sensorWaardes, wit[0], wit[1]);
+  buzzer.play(">g32>>c32");
+
+  Serial.println("Cilibratie voltooid! Druk knop 'A' om verder te gaan!")
+  ButtonA.waitForButton();
 }
 
 void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
@@ -45,7 +64,12 @@ void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
 }
 
 void Line::LineRijden() {
+  delay(2000);
+  buzzer.play(">g32>>c32");
 
+  while (sensorWaardes[0] <= zwart[0] && sensorWaardes[0] >= zwart[1] || sensorWaardes[1] <= zwart[0] && sensorWaardes[1] >= zwart[1] || sensorWaardes[2] <= zwart[0] && sensorWaardes[2] >= zwart[1] || sensorWaardes[3] <= zwart[0] && sensorWaardes[3] >= zwart[1] || sensorWaardes[4] <= zwart[0] && sensorWaardes[4] >= zwart[1]) {
+    //Als er minimaal 1 sensor zwart detecteert
+    
     int16_t position = lineSensors.readLine(sensorWaardes);
 
     int16_t error = position - 2000;
@@ -61,10 +85,18 @@ void Line::LineRijden() {
     rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
+  }
 
+  while (sensorWaardes[0] <= wit[0] && sensorWaardes[0] >= wit[1] && sensorWaardes[1] <= wit[0] && sensorWaardes[1] >= wit[1] && sensorWaardes[2] <= wit[0] && sensorWaardes[2] >= wit[1] && sensorWaardes[3] <= wit[0] && sensorWaardes[3] >= wit[1] && sensorWaardes[4] <= wit[0] && sensorWaardes[4] >= wit[1]) {
+    //Als alles wit is
+    //Zoeken naar lijn
+    
+  }
+  
 if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= wit[0] && sensorWaardes[1] <= wit[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
   
-  //zwarte lijn in het midden volgen
+  //zwarte lijn in het midden waargenomen
+  //bijv maxspeed aanzetten
 }
 
 if (sensorWaardes[2] >= wit[0] && sensorWaardes[2] <= wit[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= zwart[0] && sensorWaardes[1] <= zwart[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
