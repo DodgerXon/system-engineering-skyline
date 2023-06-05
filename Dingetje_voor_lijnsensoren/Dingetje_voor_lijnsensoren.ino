@@ -1,6 +1,5 @@
 #include <Wire.h>
-#include "QTRSensors.cpp"
-#include "QTRSensors.h"
+
 #include <Zumo32U4.h>
 //#include "Calibrateding.cpp"
 
@@ -39,6 +38,7 @@ void setup() {
 
     buttonA.waitForButton();
 
+  zwart[0] = 1;
 
 
     calibrate();
@@ -49,13 +49,19 @@ void setup() {
 
 void calibrate()
 {
+  Serial.println("Calibreer zwart");
   buttonA.waitForButton();
   for (int i = 0; i < 2; i++) {
   lineSensors.Calibrate(zwart[0], zwart[1]);
   delay(2000);
   buzzer.play(">g32>>c32");
+  Serial.println("De minimale waarde van zwart is: ");
+  Serial.print(zwart[0]);
+  Serial.println("De maximale waarde van zwart is: ");
+  Serial.print(zwart[1]);
   }
 
+Serial.println("Calibreer bruin");
 buttonA.waitForButton();
   for (int i = 0; i < 2; i++) {
   lineSensors.Calibrate(bruin[0], bruin[1]);
