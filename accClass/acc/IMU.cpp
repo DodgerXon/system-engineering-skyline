@@ -3,6 +3,7 @@
 #include <Wire.h>
 #include "IMU.h"
 Zumo32U4IMU sensor;
+Zumo32U4Motors motors;
 using namespace std;
 
 
@@ -39,9 +40,29 @@ using namespace std;
 
     }
     void IMU::printen(){
-        Serial.println(sensor.a.x);
+      Serial.println(sensor.a.x);
+      if (sensor.a.x < 100 && sensor.a.x > -100 ) {
+        Serial.println("Pitch 0°");
+
+
+      
+      }
         // print de waarde uit van de accelerometer
 
+    }
+    void IMU::balans(){
+      if (sensor.a.x < 100 && sensor.a.x > -100 ) {
+          motors.setLeftSpeed(0);
+          motors.setRightSpeed(0);
+        }
+      if (sensor.a.x > 100) {
+          motors.setLeftSpeed(100);
+          motors.setRightSpeed(100);
+        }
+      if (sensor.a.x < 100) {
+          motors.setLeftSpeed(-100);
+          motors.setRightSpeed(-100);
+        }
     }
     IMU::~IMU(){
 

@@ -14,6 +14,7 @@ public:
     void klaarmaken();
     void lezen();
     void printen();
+    void balans();
     ~IMU();
 };
 

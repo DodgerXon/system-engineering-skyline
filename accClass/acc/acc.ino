@@ -15,6 +15,8 @@ imusensor.klaarmaken();
 void loop(){
 imusensor.lezen();
 imusensor.printen();
+imusensor.balans();
+delay(500);
 
 
 
