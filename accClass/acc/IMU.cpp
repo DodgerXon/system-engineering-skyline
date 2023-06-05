@@ -1,12 +1,13 @@
-#include   <iostream>
-//#include <Zumo32U4.h>
-//#include <Wire.h>
+
+#include <Zumo32U4.h>
+#include <Wire.h>
 #include "IMU.h"
+Zumo32U4IMU sensor;
 using namespace std;
 
 
-    IMU::IMU(string s) : sensor(s) {
-        Zumo32U4IMU sensor;
+    IMU::IMU() {
+  
 
     }
     void IMU::klaarmaken(){

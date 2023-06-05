@@ -1,16 +1,16 @@
-#include   <iostream>
-// #include <Zumo32U4.h>
-// #include <Wire.h>
+#include "Arduino.h"
+#include <Zumo32U4.h>
+#include <Wire.h>
 using namespace std;
 
 #ifndef IMU_H
 #define IMU_H
-class IMU
+class IMU 
 {
 private:
-    string sensor;
+    String sens;
 public:
-    IMU(string);
+    IMU();
     void klaarmaken();
     void lezen();
     void printen();
