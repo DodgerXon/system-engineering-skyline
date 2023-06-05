@@ -1,3 +1,7 @@
+#include <Wire.h>
+#include <Zumo32U4.h>
+#include "Dingetje_voor_lijnsensoren.ino"
+
 void QTRSensors::calibrate(int& kleurmin, int& kleurmax)
 {
     if(readMode == QTR_EMITTERS_ON_AND_OFF || readMode == QTR_EMITTERS_ON)

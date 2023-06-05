@@ -10,6 +10,7 @@ Zumo32U4Buzzer buzzer;
 Zumo32U4LineSensors lineSensors;
 Zumo32U4Motors motors;
 Zumo32U4ButtonA buttonA;
+Zumo32U4ButtonB buttonB;
 
 int calibrationSensors[2];
 
@@ -45,41 +46,48 @@ void setup() {
 
 void calibrate()
 {
+  buttonA.waitForButton();
   for (int i = 0; i < 2; i++) {
   lineSensors.calibrate(&zwart[0], &zwart[1]);
   delay(2000);
   buzzer.play(">g32>>c32");
   }
 
+buttonA.waitForButton();
   for (int i = 0; i < 2; i++) {
   lineSensors.calibrate(&bruin[0], &bruin[1]);
   delay(2000);
   buzzer.play(">g32>>c32");
   }
 
+buttonA.waitForButton();
 for (int i = 0; i < 2; i++) {
   lineSensors.calibrate(&grijs[0], &grijs[1]);
   delay(2000);
   buzzer.play(">g32>>c32");
 }
 
+buttonA.waitForButton();
 for (int i = 0; i < 2; i++) {
   lineSensors.calibrate(&rood[0], &rood[1]);
   delay(2000);
   buzzer.play(">g32>>c32");
 }
 
+buttonA.waitForButton();
 for (int i = 0; i < 2; i++) {
   lineSensors.calibrate(&groen[0], &groen[1]);
   delay(2000);
   buzzer.play(">g32>>c32");
 }
 
+buttonA.waitForButton();
 for (int i = 0; i < 2; i++) {
   lineSensors.calibrate(&wit[0], &wit[1]);
   delay(2000);
   buzzer.play(">g32>>c32");
 }
+buttonB.waitForButton();
 
 while(!buttonA.getSingleDebouncedPress())
   {
