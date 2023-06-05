@@ -1,6 +1,8 @@
 #include "Linesensording.h"
 
-LineSensording linesensor;
+Line linesensor;
+Line ButtonA;
+
 
 void setup() {
   Serial.begin(9600);
