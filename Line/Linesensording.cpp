@@ -43,3 +43,67 @@ void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
   Serial.print("Kleinste waarde is: ");
   Serial.println(min);
 }
+
+void Line::LineRijden() {
+
+    int16_t position = lineSensors.readLine(sensorWaardes);
+
+    int16_t error = position - 2000;
+
+     int16_t speedDifference = error / 4 + 6 * (error - lastError);
+
+    lastError = error;
+
+   int16_t leftSpeed = (int16_t)maxSpeed + speedDifference;
+    int16_t rightSpeed = (int16_t)maxSpeed - speedDifference;
+
+    leftSpeed = constrain(leftSpeed, 0, (int16_t)maxSpeed);
+    rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
+
+    motors.setSpeeds(leftSpeed, rightSpeed);
+
+if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= wit[0] && sensorWaardes[1] <= wit[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
+  
+  //zwarte lijn in het midden volgen
+}
+
+if (sensorWaardes[2] >= wit[0] && sensorWaardes[2] <= wit[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= zwart[0] && sensorWaardes[1] <= zwart[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
+  
+  //sturen naar links
+}
+
+if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= grijs[0] && sensorWaardes[3] <= grijs[1] && sensorWaardes[4] >= grijs[0] && sensorWaardes[4] <= grijs[1]) {
+  
+  // volgende kruispunt rechts
+} 
+
+if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[1] >= grijs[0] && sensorWaardes[1] <= grijs[1] && sensorWaardes[0] >= grijs[0] && sensorWaardes[0] <= grijs[1]) {
+  
+  // volgende kruispunt links
+} 
+
+if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= grijs[0] && sensorWaardes[3] <= grijs[1] && sensorWaardes[4] >= grijs[0] && sensorWaardes[4] <= grijs[1] && sensorWaardes[1] >= grijs[0] && sensorWaardes[1] <= grijs[1] && sensorWaardes[0] >= grijs[0] && sensorWaardes[0] <= grijs[1]) {
+  
+  //Stilstaan voor WipWap en wachten op IMU = 0 (of whatever de waarde ervoor is)
+} 
+
+if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= bruin[0] && sensorWaardes[3] <= bruin[1] && sensorWaardes[4] >= bruin[0] && sensorWaardes[4] <= bruin[1] && sensorWaardes[1] >= bruin[0] && sensorWaardes[1] <= bruin[1] && sensorWaardes[0] >= bruin[0] && sensorWaardes[0] <= bruin[1]) {
+
+  //20 cm vooruitrijden
+  //fase 2
+}
+
+if (sensorWaardes[2] >= bruin[0] && sensorWaardes[2] <= bruin[1]) {
+  
+}
+if (sensorWaardes[2] >= rood[0] && sensorWaardes[2] <= rood[1]) {
+  //niet volgen
+}
+
+if (sensorWaardes[2] >= groen[0] && sensorWaardes[2] <= groen[1]) {
+  //snelheid = 50%
+} 
+if (sensorWaardes[2] >= grijs[0] && sensorWaardes[2] <= grijs[1]) {
+  
+}
+}

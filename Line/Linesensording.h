@@ -9,6 +9,7 @@ public:
   LineSensording();
   void vindHoogsteLaagste(int, int, int);
   void setup();
+  void LineRijden();
 
   private:
   int sensorWaardes[5];
@@ -19,6 +20,7 @@ public:
   int bruin[2] = {0, 2000};
   Zumo32U4LineSensors lineSensors;
   Zumo32U4ButtonA ButtonA;
+  
 }
 
 #endif
