@@ -71,8 +71,10 @@ void Line::setup() {
 }
 
 void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
- 
-  for(int i = 0; i <= 5; i++) {
+  max = 0;
+  min = 2000;
+
+  for(int i = 0; i < 5; i++) {
     if (sensorWaardes[i] > max) {
       max = sensorWaardes[i];
     }
@@ -86,12 +88,13 @@ void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
   Serial.println(min);
 }
 
-void Line::LineRijden() {
-  delay(2000);
-  buzzer.play(">g32>>c32");
+int Line::LineRijden(int Waardes1[]) {
+  
   int lastError = 0;
 
-  while (sensorWaardes[0] <= zwart[0] && sensorWaardes[0] >= zwart[1] || sensorWaardes[1] <= zwart[0] && sensorWaardes[1] >= zwart[1] || sensorWaardes[2] <= zwart[0] && sensorWaardes[2] >= zwart[1] || sensorWaardes[3] <= zwart[0] && sensorWaardes[3] >= zwart[1] || sensorWaardes[4] <= zwart[0] && sensorWaardes[4] >= zwart[1]) {
+  lineSensors.read(sensorWaardes);
+
+  if (Waardes1[0] <= zwart[0] && Waardes1[0] >= zwart[1] || Waardes1[1] <= zwart[0] && Waardes1[1] >= zwart[1] || Waardes1[2] <= zwart[0] && Waardes1[2] >= zwart[1] || Waardes1[3] <= zwart[0] && Waardes1[3] >= zwart[1] || Waardes1[4] <= zwart[0] && Waardes1[4] >= zwart[1]) {
     //Als er minimaal 1 sensor zwart detecteert
     
     int16_t position = lineSensors.readLine(sensorWaardes);
@@ -109,12 +112,13 @@ void Line::LineRijden() {
     rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
+    Serial.println("Rechtdoor!");
   }
 
-  while (sensorWaardes[0] <= wit[0] && sensorWaardes[0] >= wit[1] && sensorWaardes[1] <= wit[0] && sensorWaardes[1] >= wit[1] && sensorWaardes[2] <= wit[0] && sensorWaardes[2] >= wit[1] && sensorWaardes[3] <= wit[0] && sensorWaardes[3] >= wit[1] && sensorWaardes[4] <= wit[0] && sensorWaardes[4] >= wit[1]) {
+  if (sensorWaardes[0] <= wit[0] && sensorWaardes[0] >= wit[1] && sensorWaardes[1] <= wit[0] && sensorWaardes[1] >= wit[1] && sensorWaardes[2] <= wit[0] && sensorWaardes[2] >= wit[1] && sensorWaardes[3] <= wit[0] && sensorWaardes[3] >= wit[1] && sensorWaardes[4] <= wit[0] && sensorWaardes[4] >= wit[1]) {
     //Als alles wit is
     //Zoeken naar lijn
-    
+    motors.setSpeeds(0, 0);
   }
   
 if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= wit[0] && sensorWaardes[1] <= wit[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
@@ -162,4 +166,6 @@ if (sensorWaardes[2] >= groen[0] && sensorWaardes[2] <= groen[1]) {
 if (sensorWaardes[2] >= grijs[0] && sensorWaardes[2] <= grijs[1]) {
   
 }
+//motors.setSpeeds(0, 0);
+return 0;
 }

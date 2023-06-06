@@ -18,7 +18,7 @@ for (int i = 0; i <= 5; i++) {
   Serial.print(" ");
 }
 Serial.println("");
-delay(250);
+linesensor.LineRijden(waardes);
 
 
 }

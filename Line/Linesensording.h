@@ -9,10 +9,10 @@ public:
   Line();
   void vindHoogsteLaagste(int[], int&, int&);
   void setup();
-  void LineRijden();
+  int LineRijden(int[]);
   int geefWaardes(int&, int&, int&, int&, int&);
   void lezen(int&, int&, int&, int&, int&);
-  int maxSpeed = 400;
+  int maxSpeed = 200;
   
 
   private:
