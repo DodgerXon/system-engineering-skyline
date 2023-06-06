@@ -10,6 +10,7 @@ public:
   void vindHoogsteLaagste(int, int, int);
   void setup();
   void LineRijden();
+  int geefWaardes();
 
   private:
   int sensorWaardes[5];
@@ -22,6 +23,6 @@ public:
   Zumo32U4LineSensors lineSensors;
   Zumo32U4ButtonA ButtonA;
   Zumo32U4Buzzer buzzer;
-}
+};
 
 #endif
