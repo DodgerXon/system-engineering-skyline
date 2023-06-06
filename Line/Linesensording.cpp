@@ -4,61 +4,79 @@ Line::Line() {
 
 }
 
-int Line::geefWaardes() {
-  return sensorWaardes[5];
-}
+/*int Line::geefWaardes(int& pos0, int&pos1, int& pos2, int& pos3, int& pos4) {
+    for(int i=0; i <= 5; i++) {
+      Serial.print("Test");
+      Serial.println(sensorWaardes[i]);
+    }
+    pos0 = sensorWaardes[0];
+    pos1 = sensorWaardes[1];
+    pos2 = sensorWaardes[2];
+    pos3 = sensorWaardes[3];
+    pos4 = sensorWaardes[4];
+    return 0;
+}*/
 
+void Line::lezen(int& pos0, int& pos1, int& pos2, int& pos3, int& pos4) {
+  lineSensors.read(sensorWaardes);
+
+    pos0 = sensorWaardes[0];
+    pos1 = sensorWaardes[1];
+    pos2 = sensorWaardes[2];
+    pos3 = sensorWaardes[3];
+    pos4 = sensorWaardes[4];
+}
 
 void Line::setup() {
   lineSensors.initFiveSensors();
 
-  Serial.println("Cilibreer zwart!");
+  Serial.println("Calibreer zwart!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, zwart[0], zwart[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer grijs!");
+  Serial.println("Calibreer grijs!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, grijs[0], grijs[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer groen!");
+  Serial.println("Calibreer groen!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, groen[0], groen[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer rood!");
+  Serial.println("Calibreer rood!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, rood[0], rood[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer bruin!");
+  Serial.println("Calibreer bruin!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, bruin[0], bruin[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer wit!");
+  Serial.println("Calibreer wit!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, wit[0], wit[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibratie voltooid! Druk knop 'A' om verder te gaan!");
+  Serial.println("Calibratie voltooid! Druk knop 'A' om verder te gaan!");
   ButtonA.waitForButton();
 }
 
 void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
  
   for(int i = 0; i <= 5; i++) {
-    if (sensorWaardes[i] > max && sensorWaardes[i] <= 2000) {
+    if (sensorWaardes[i] > max) {
       max = sensorWaardes[i];
     }
-    if (sensorWaardes[i] < min && sensorWaardes[i] >= 0) {
+    if (sensorWaardes[i] < min) {
       min = sensorWaardes[i];
     }
   }
@@ -71,6 +89,7 @@ void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
 void Line::LineRijden() {
   delay(2000);
   buzzer.play(">g32>>c32");
+  int lastError = 0;
 
   while (sensorWaardes[0] <= zwart[0] && sensorWaardes[0] >= zwart[1] || sensorWaardes[1] <= zwart[0] && sensorWaardes[1] >= zwart[1] || sensorWaardes[2] <= zwart[0] && sensorWaardes[2] >= zwart[1] || sensorWaardes[3] <= zwart[0] && sensorWaardes[3] >= zwart[1] || sensorWaardes[4] <= zwart[0] && sensorWaardes[4] >= zwart[1]) {
     //Als er minimaal 1 sensor zwart detecteert

@@ -7,20 +7,24 @@
 class Line {
 public:
   Line();
-  void vindHoogsteLaagste(int, int, int);
+  void vindHoogsteLaagste(int[], int&, int&);
   void setup();
   void LineRijden();
-  int geefWaardes();
+  int geefWaardes(int&, int&, int&, int&, int&);
+  void lezen(int&, int&, int&, int&, int&);
+  int maxSpeed = 400;
+  
 
   private:
   int sensorWaardes[5];
-  int zwart[2] = {0, 2000};
-  int grijs[2] = {0, 2000};
-  int groen[2] = {0, 2000};
-  int rood[2] = {0, 2000};
-  int bruin[2] = {0, 2000};
-  int wit[2] = {0, 2000};
+  int zwart[2];
+  int grijs[2];
+  int groen[2];
+  int rood[2];
+  int bruin[2];
+  int wit[2];
   Zumo32U4LineSensors lineSensors;
+  Zumo32U4Motors motors;
   Zumo32U4ButtonA ButtonA;
   Zumo32U4Buzzer buzzer;
 };

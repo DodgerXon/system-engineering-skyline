@@ -1,6 +1,9 @@
 #include "Linesensording.h"
 
 Line linesensor;
+Line motors;
+
+int waardes[5];
 
 void setup() {
   Serial.begin(9600);
@@ -8,10 +11,10 @@ void setup() {
 }
 
 void loop() {
-  linesensor.read(geefWaardes(sensorWaardes));
+  linesensor.lezen(waardes[0], waardes[1], waardes[2], waardes[3], waardes[4]);
 
-for (int i = 0; i < 5; i++) {
-  Serial.print(sensorWaardes[i]);
+for (int i = 0; i <= 5; i++) {
+  Serial.print(waardes[i]);
   Serial.print(" ");
 }
 Serial.println("");
