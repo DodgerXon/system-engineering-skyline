@@ -6,7 +6,7 @@
 
 class Line {
 public:
-  LineSensording();
+  Line();
   void vindHoogsteLaagste(int, int, int);
   void setup();
   void LineRijden();

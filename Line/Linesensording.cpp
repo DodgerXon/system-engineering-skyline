@@ -4,7 +4,7 @@ Line::Line() {
 
 }
 
-int[] Line::geefWaardes() {
+int Line::geefWaardes() {
   return sensorWaardes[5];
 }
 
@@ -12,43 +12,43 @@ int[] Line::geefWaardes() {
 void Line::setup() {
   lineSensors.initFiveSensors();
 
-  Serial.println("Cilibreer zwart!")
+  Serial.println("Cilibreer zwart!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, zwart[0], zwart[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer grijs!")
+  Serial.println("Cilibreer grijs!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, grijs[0], grijs[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer groen!")
+  Serial.println("Cilibreer groen!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, groen[0], groen[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer rood!")
+  Serial.println("Cilibreer rood!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, rood[0], rood[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer bruin!")
+  Serial.println("Cilibreer bruin!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, bruin[0], bruin[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibreer wit!")
+  Serial.println("Cilibreer wit!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, wit[0], wit[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Cilibratie voltooid! Druk knop 'A' om verder te gaan!")
+  Serial.println("Cilibratie voltooid! Druk knop 'A' om verder te gaan!");
   ButtonA.waitForButton();
 }
 
