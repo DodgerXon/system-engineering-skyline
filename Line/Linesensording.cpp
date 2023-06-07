@@ -113,12 +113,14 @@ int Line::LineRijden(int Waardes1[]) {
 
     motors.setSpeeds(leftSpeed, rightSpeed);
     Serial.println("Rechtdoor!");
+    Serial.println(leftSpeed);
+    Serial.println(rightSpeed);
   }
 
   if (sensorWaardes[0] <= wit[0] && sensorWaardes[0] >= wit[1] && sensorWaardes[1] <= wit[0] && sensorWaardes[1] >= wit[1] && sensorWaardes[2] <= wit[0] && sensorWaardes[2] >= wit[1] && sensorWaardes[3] <= wit[0] && sensorWaardes[3] >= wit[1] && sensorWaardes[4] <= wit[0] && sensorWaardes[4] >= wit[1]) {
     //Als alles wit is
     //Zoeken naar lijn
-    motors.setSpeeds(0, 0);
+    motors.setSpeeds(100, 100);
   }
   
 if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= wit[0] && sensorWaardes[1] <= wit[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
@@ -163,6 +165,28 @@ if (sensorWaardes[2] >= rood[0] && sensorWaardes[2] <= rood[1]) {
 if (sensorWaardes[2] >= groen[0] && sensorWaardes[2] <= groen[1]) {
   //snelheid = 50%
 } 
+if (Waardes1[0] <= groen[0] && Waardes1[0] >= groen[1] || Waardes1[1] <= groen[0] && Waardes1[1] >= groen[1] || Waardes1[2] <= groen[0] && Waardes1[2] >= groen[1] || Waardes1[3] <= groen[0] && Waardes1[3] >= groen[1] || Waardes1[4] <= groen[0] && Waardes1[4] >= groen[1]) {
+  
+  int16_t position = lineSensors.readLine(sensorWaardes);
+
+    int16_t error = position - 2200;
+
+     int16_t speedDifference = error / 4 + 6 * (error - lastError);
+
+    lastError = error;
+
+   int16_t leftSpeed = (int16_t)maxSpeed + speedDifference;
+    int16_t rightSpeed = (int16_t)maxSpeed - speedDifference;
+
+    leftSpeed = constrain(leftSpeed, 0, (int16_t)maxSpeed);
+    rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
+
+    int16_t leftSpeedGroen = (int16_t)maxSpeedGroen + speedDifference;
+
+    motors.setSpeeds(leftSpeed,rightSpeed);
+    Serial.println("Rechtdoor!");
+  
+}
 if (sensorWaardes[2] >= grijs[0] && sensorWaardes[2] <= grijs[1]) {
   
 }

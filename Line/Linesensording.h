@@ -12,7 +12,7 @@ public:
   int LineRijden(int[]);
   int geefWaardes(int&, int&, int&, int&, int&);
   void lezen(int&, int&, int&, int&, int&);
-  int maxSpeed = 200;
+  int maxSpeed = 350;
   
 
   private:
