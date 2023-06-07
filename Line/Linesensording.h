@@ -23,6 +23,7 @@ public:
   int rood[2];
   int bruin[2];
   int wit[2];
+  int blijfrechts;
   int16_t maxSpeed = 400;
   int16_t groeneSnelheid = 200;
   Zumo32U4LineSensors lineSensors;

@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "HardwareSerial.h"
 #include "LineSensording.h"
 
@@ -116,6 +117,13 @@ int Line::LineRijden(int Waardes1[]) {
     Serial1.println("Rechtdoor!");
     Serial1.println(leftSpeed);
     Serial1.println(rightSpeed);
+    if (blijfrechts == 1){
+      if (Waardes1[0] <= zwart[0] && Waardes1[0] >= zwart[1] && Waardes1[1] <= zwart[0] && Waardes1[1] >= zwart[1] && Waardes1[2] <= zwart[0] && Waardes1[2] >= zwart[1] && Waardes1[3] <= zwart[0] && Waardes1[3] >= zwart[1] && Waardes1[4] <= zwart[0] && Waardes1[4] >= zwart[1]) {
+      motors.setSpeeds(0, 325);
+      delay(850);
+      blijfrechts = 0;
+      }
+    }
   }
 
   if (sensorWaardes[0] <= wit[0] && sensorWaardes[0] >= wit[1] && sensorWaardes[1] <= wit[0] && sensorWaardes[1] >= wit[1] && sensorWaardes[2] <= wit[0] && sensorWaardes[2] >= wit[1] && sensorWaardes[3] <= wit[0] && sensorWaardes[3] >= wit[1] && sensorWaardes[4] <= wit[0] && sensorWaardes[4] >= wit[1]) {
@@ -188,8 +196,10 @@ if (Waardes1[0] <= groen[0] && Waardes1[0] >= groen[1] || Waardes1[1] <= groen[0
     Serial1.println(rightSpeed);
   
 }
-if (sensorWaardes[2] >= grijs[0] && sensorWaardes[2] <= grijs[1]) {
-  
+if (sensorWaardes[4] <= grijs[0] && sensorWaardes[4] >= grijs[1])  {
+  // bocht naar rechts
+  blijfrechts = 1;
+
 }
 //motors.setSpeeds(0, 0);
 return 0;
