@@ -12,7 +12,7 @@ public:
   int LineRijden(int[]);
   int geefWaardes(int&, int&, int&, int&, int&);
   void lezen(int&, int&, int&, int&, int&);
-  int maxSpeed = 350;
+
   
 
   private:
@@ -23,6 +23,8 @@ public:
   int rood[2];
   int bruin[2];
   int wit[2];
+  int16_t maxSpeed = 400;
+  int16_t groeneSnelheid = 200;
   Zumo32U4LineSensors lineSensors;
   Zumo32U4Motors motors;
   Zumo32U4ButtonA ButtonA;

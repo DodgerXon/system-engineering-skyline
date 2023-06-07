@@ -6,18 +6,18 @@ Line motors;
 int waardes[5];
 
 void setup() {
-  Serial.begin(9600);
+  Serial1.begin(9600);
   linesensor.setup();
 }
 
 void loop() {
   linesensor.lezen(waardes[0], waardes[1], waardes[2], waardes[3], waardes[4]);
 
-for (int i = 0; i < 5; i++) {
-  Serial.print(waardes[i]);
-  Serial.print(" ");
+/*for (int i = 0; i < 5; i++) {
+  Serial1.print(waardes[i]);
+  Serial1.print(" ");
 }
-Serial.println("");
+Serial1.println("");*/
 linesensor.LineRijden(waardes);
 
 

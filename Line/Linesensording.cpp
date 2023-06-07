@@ -1,3 +1,4 @@
+#include "HardwareSerial.h"
 #include "LineSensording.h"
 
 Line::Line() {
@@ -30,43 +31,43 @@ void Line::lezen(int& pos0, int& pos1, int& pos2, int& pos3, int& pos4) {
 void Line::setup() {
   lineSensors.initFiveSensors();
 
-  Serial.println("Calibreer zwart!");
+  Serial1.println("Calibreer zwart!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, zwart[0], zwart[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Calibreer grijs!");
+  Serial1.println("Calibreer grijs!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, grijs[0], grijs[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Calibreer groen!");
+  Serial1.println("Calibreer groen!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, groen[0], groen[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Calibreer rood!");
+  Serial1.println("Calibreer rood!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, rood[0], rood[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Calibreer bruin!");
+  Serial1.println("Calibreer bruin!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, bruin[0], bruin[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Calibreer wit!");
+  Serial1.println("Calibreer wit!");
   ButtonA.waitForButton();
   lineSensors.read(sensorWaardes);
   vindHoogsteLaagste(sensorWaardes, wit[0], wit[1]);
   buzzer.play(">g32>>c32");
 
-  Serial.println("Calibratie voltooid! Druk knop 'A' om verder te gaan!");
+  Serial1.println("Calibratie voltooid! Druk knop 'A' om verder te gaan!");
   ButtonA.waitForButton();
 }
 
@@ -82,10 +83,10 @@ void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
       min = sensorWaardes[i];
     }
   }
-  Serial.print("Hoogste waarde is: ");
-  Serial.println(max);
-  Serial.print("Kleinste waarde is: ");
-  Serial.println(min);
+  Serial1.print("Hoogste waarde is: ");
+  Serial1.println(max);
+  Serial1.print("Kleinste waarde is: ");
+  Serial1.println(min);
 }
 
 int Line::LineRijden(int Waardes1[]) {
@@ -105,16 +106,16 @@ int Line::LineRijden(int Waardes1[]) {
 
     lastError = error;
 
-   int16_t leftSpeed = (int16_t)maxSpeed + speedDifference;
-    int16_t rightSpeed = (int16_t)maxSpeed - speedDifference;
+   int16_t leftSpeed = maxSpeed + speedDifference;
+    int16_t rightSpeed = maxSpeed - speedDifference;
 
-    leftSpeed = constrain(leftSpeed, 0, (int16_t)maxSpeed);
-    rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
+    leftSpeed = constrain(leftSpeed, 0, maxSpeed);
+    rightSpeed = constrain(rightSpeed, 0, maxSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
-    Serial.println("Rechtdoor!");
-    Serial.println(leftSpeed);
-    Serial.println(rightSpeed);
+    Serial1.println("Rechtdoor!");
+    Serial1.println(leftSpeed);
+    Serial1.println(rightSpeed);
   }
 
   if (sensorWaardes[0] <= wit[0] && sensorWaardes[0] >= wit[1] && sensorWaardes[1] <= wit[0] && sensorWaardes[1] >= wit[1] && sensorWaardes[2] <= wit[0] && sensorWaardes[2] >= wit[1] && sensorWaardes[3] <= wit[0] && sensorWaardes[3] >= wit[1] && sensorWaardes[4] <= wit[0] && sensorWaardes[4] >= wit[1]) {
@@ -175,16 +176,16 @@ if (Waardes1[0] <= groen[0] && Waardes1[0] >= groen[1] || Waardes1[1] <= groen[0
 
     lastError = error;
 
-   int16_t leftSpeed = (int16_t)maxSpeed + speedDifference;
-    int16_t rightSpeed = (int16_t)maxSpeed - speedDifference;
+   int16_t leftSpeed = groeneSnelheid + speedDifference;
+    int16_t rightSpeed = groeneSnelheid - speedDifference;
 
-    leftSpeed = constrain(leftSpeed, 0, (int16_t)maxSpeed);
-    rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
-
-    int16_t leftSpeedGroen = (int16_t)maxSpeedGroen + speedDifference;
+    leftSpeed = constrain(leftSpeed, 0, groeneSnelheid);
+    rightSpeed = constrain(rightSpeed, 0, groeneSnelheid);
 
     motors.setSpeeds(leftSpeed,rightSpeed);
-    Serial.println("Rechtdoor!");
+    Serial1.println("Rechtdoor!");
+    Serial1.println(leftSpeed);
+    Serial1.println(rightSpeed);
   
 }
 if (sensorWaardes[2] >= grijs[0] && sensorWaardes[2] <= grijs[1]) {
