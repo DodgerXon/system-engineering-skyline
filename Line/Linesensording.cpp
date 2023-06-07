@@ -103,26 +103,42 @@ int Line::LineRijden(int Waardes1[]) {
 
     int16_t error = position - 2000;
 
-     int16_t speedDifference = error / 4 + 6 * (error - lastError);
+    int16_t speedDifference = error / 4 + 6 * (error - lastError);
 
     lastError = error;
 
-   int16_t leftSpeed = maxSpeed + speedDifference;
+    int16_t leftSpeed = maxSpeed + speedDifference;
     int16_t rightSpeed = maxSpeed - speedDifference;
 
     leftSpeed = constrain(leftSpeed, 0, maxSpeed);
     rightSpeed = constrain(rightSpeed, 0, maxSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
-    Serial1.println("Rechtdoor!");
-    Serial1.println(leftSpeed);
-    Serial1.println(rightSpeed);
-    if (blijfrechts == 1){
-      if (Waardes1[0] <= zwart[0] && Waardes1[0] >= zwart[1] && Waardes1[1] <= zwart[0] && Waardes1[1] >= zwart[1] && Waardes1[2] <= zwart[0] && Waardes1[2] >= zwart[1] && Waardes1[3] <= zwart[0] && Waardes1[3] >= zwart[1] && Waardes1[4] <= zwart[0] && Waardes1[4] >= zwart[1]) {
-      motors.setSpeeds(0, 325);
-      delay(850);
-      blijfrechts = 0;
-      }
+    // Serial1.println("Rechtdoor!");
+    // Serial1.println(leftSpeed);
+    // Serial1.println(rightSpeed);
+
+    if (sensorWaardes[4] <= grijs[0] && sensorWaardes[4] >= grijs[1] && !blijflinks)  {
+      // bocht naar rechts
+      
+      // for (int i = 0; i<=2; i++) {
+      // }
+      blijfrechts = true;
+      motors.setSpeeds(300, 40);
+      Serial1.println("Rechts bij volgende kruispunt");
+      delay(750);
+      blijfrechts = false;
+    }
+
+    if (sensorWaardes[0] <= grijs[0] && sensorWaardes[0] >= grijs[1] && !blijfrechts)  {
+      // bocht naar rechts
+      // for (int i = 0; i<=2; i++) {
+      // }
+      blijflinks = true;
+      motors.setSpeeds(40, 300);
+      Serial1.println("Links bij volgende kruispunt");
+      delay(750);
+      blijflinks = false;
     }
   }
 
@@ -131,76 +147,73 @@ int Line::LineRijden(int Waardes1[]) {
     //Zoeken naar lijn
     motors.setSpeeds(100, 100);
   }
-  
-if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= wit[0] && sensorWaardes[1] <= wit[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
+ /* 
+  if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= wit[0] && sensorWaardes[1] <= wit[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
   
   //zwarte lijn in het midden waargenomen
   //bijv maxspeed aanzetten
-}
+  }
 
-if (sensorWaardes[2] >= wit[0] && sensorWaardes[2] <= wit[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= zwart[0] && sensorWaardes[1] <= zwart[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
+  if (sensorWaardes[2] >= wit[0] && sensorWaardes[2] <= wit[1] && sensorWaardes[3] >= wit[0] && sensorWaardes[3] <= wit[1] && sensorWaardes[4] >= wit[0] && sensorWaardes[4] <= wit[1] && sensorWaardes[1] >= zwart[0] && sensorWaardes[1] <= zwart[1] && sensorWaardes[0] >= wit[0] && sensorWaardes[0] <= wit[1]) {
   
   //sturen naar links
-}
+  }
 
-if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= grijs[0] && sensorWaardes[3] <= grijs[1] && sensorWaardes[4] >= grijs[0] && sensorWaardes[4] <= grijs[1]) {
+  if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= grijs[0] && sensorWaardes[3] <= grijs[1] && sensorWaardes[4] >= grijs[0] && sensorWaardes[4] <= grijs[1]) {
   
   // volgende kruispunt rechts
-} 
+  } 
 
-if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[1] >= grijs[0] && sensorWaardes[1] <= grijs[1] && sensorWaardes[0] >= grijs[0] && sensorWaardes[0] <= grijs[1]) {
+  if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[1] >= grijs[0] && sensorWaardes[1] <= grijs[1] && sensorWaardes[0] >= grijs[0] && sensorWaardes[0] <= grijs[1]) {
   
   // volgende kruispunt links
-} 
+  } 
 
-if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= grijs[0] && sensorWaardes[3] <= grijs[1] && sensorWaardes[4] >= grijs[0] && sensorWaardes[4] <= grijs[1] && sensorWaardes[1] >= grijs[0] && sensorWaardes[1] <= grijs[1] && sensorWaardes[0] >= grijs[0] && sensorWaardes[0] <= grijs[1]) {
+  if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= grijs[0] && sensorWaardes[3] <= grijs[1] && sensorWaardes[4] >= grijs[0] && sensorWaardes[4] <= grijs[1] && sensorWaardes[1] >= grijs[0] && sensorWaardes[1] <= grijs[1] && sensorWaardes[0] >= grijs[0] && sensorWaardes[0] <= grijs[1]) {
   
   //Stilstaan voor WipWap en wachten op IMU = 0 (of whatever de waarde ervoor is)
-} 
+  } 
 
-if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= bruin[0] && sensorWaardes[3] <= bruin[1] && sensorWaardes[4] >= bruin[0] && sensorWaardes[4] <= bruin[1] && sensorWaardes[1] >= bruin[0] && sensorWaardes[1] <= bruin[1] && sensorWaardes[0] >= bruin[0] && sensorWaardes[0] <= bruin[1]) {
+  if (sensorWaardes[2] >= zwart[0] && sensorWaardes[2] <= zwart[1] && sensorWaardes[3] >= bruin[0] && sensorWaardes[3] <= bruin[1] && sensorWaardes[4] >= bruin[0] && sensorWaardes[4] <= bruin[1] && sensorWaardes[1] >= bruin[0] && sensorWaardes[1] <= bruin[1] && sensorWaardes[0] >= bruin[0] && sensorWaardes[0] <= bruin[1]) {
 
   //20 cm vooruitrijden
   //fase 2
-}
+  }
 
-if (sensorWaardes[2] >= bruin[0] && sensorWaardes[2] <= bruin[1]) {
+  if (sensorWaardes[2] >= bruin[0] && sensorWaardes[2] <= bruin[1]) {
   
-}
-if (sensorWaardes[2] >= rood[0] && sensorWaardes[2] <= rood[1]) {
+  }
+
+  if (sensorWaardes[2] >= rood[0] && sensorWaardes[2] <= rood[1]) {
   //niet volgen
-}
+  }
 
-if (sensorWaardes[2] >= groen[0] && sensorWaardes[2] <= groen[1]) {
+  if (sensorWaardes[2] >= groen[0] && sensorWaardes[2] <= groen[1]) {
   //snelheid = 50%
-} 
-if (Waardes1[0] <= groen[0] && Waardes1[0] >= groen[1] || Waardes1[1] <= groen[0] && Waardes1[1] >= groen[1] || Waardes1[2] <= groen[0] && Waardes1[2] >= groen[1] || Waardes1[3] <= groen[0] && Waardes1[3] >= groen[1] || Waardes1[4] <= groen[0] && Waardes1[4] >= groen[1]) {
+  }
+*/
+  if (Waardes1[0] <= groen[0] && Waardes1[0] >= groen[1] || Waardes1[1] <= groen[0] && Waardes1[1] >= groen[1] || Waardes1[2] <= groen[0] && Waardes1[2] >= groen[1] || Waardes1[3] <= groen[0] && Waardes1[3] >= groen[1] || Waardes1[4] <= groen[0] && Waardes1[4] >= groen[1]) {
   
-  int16_t position = lineSensors.readLine(sensorWaardes);
+    int16_t position = lineSensors.readLine(sensorWaardes);
 
     int16_t error = position - 2200;
 
-     int16_t speedDifference = error / 4 + 6 * (error - lastError);
+    int16_t speedDifference = error / 4 + 6 * (error - lastError);
 
     lastError = error;
 
-   int16_t leftSpeed = groeneSnelheid + speedDifference;
+    int16_t leftSpeed = groeneSnelheid + speedDifference;
     int16_t rightSpeed = groeneSnelheid - speedDifference;
 
     leftSpeed = constrain(leftSpeed, 0, groeneSnelheid);
     rightSpeed = constrain(rightSpeed, 0, groeneSnelheid);
 
     motors.setSpeeds(leftSpeed,rightSpeed);
-    Serial1.println("Rechtdoor!");
-    Serial1.println(leftSpeed);
-    Serial1.println(rightSpeed);
-  
+    // Serial1.println("Rechtdoor!");
+    // Serial1.println(leftSpeed);
+    // Serial1.println(rightSpeed);
 }
-if (sensorWaardes[4] <= grijs[0] && sensorWaardes[4] >= grijs[1])  {
-  // bocht naar rechts
-  blijfrechts = 1;
 
-}
 //motors.setSpeeds(0, 0);
-return 0;
+//return 0;
 }
