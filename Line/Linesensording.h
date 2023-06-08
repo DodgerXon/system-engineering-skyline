@@ -23,7 +23,7 @@ public:
   int wit[2];
   bool blijfrechts;
   bool blijflinks;
-  int maxSpeed = 300;
+  int maxSpeed = 350;
   int groeneSnelheid = 150;
   Zumo32U4LineSensors lineSensors;
   Zumo32U4Motors motors;
