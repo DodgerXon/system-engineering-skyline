@@ -102,12 +102,30 @@ int Line::LineRijden(int Waardes1[]) {
     int16_t speedDifference = error / 1 + 1 * (error - lastError);
 
     lastError = error;
-   
-    int16_t leftSpeed = 300 + speedDifference;
-    int16_t rightSpeed = 300 - speedDifference;
 
-    leftSpeed = constrain(leftSpeed, 0, 300);  
-    rightSpeed = constrain(rightSpeed, 0, 300);
+    int m1Speed = maxSpeed + speedDifference;
+    int m2Speed = maxSpeed - speedDifference;
 
-    motors.setSpeeds(leftSpeed, rightSpeed);      
+    if (m1Speed < 0) {
+      m1Speed = m1Speed - 10;
+    }
+
+    if (m2Speed < 0) {
+      m2Speed = m2Speed - 10;
+    } 
+
+    if (m1Speed > maxSpeed) {
+      m1Speed = maxSpeed;
+    }
+
+    if (m2Speed > maxSpeed) {
+      m2Speed = maxSpeed;
+    }
+
+    
+    motors.setSpeeds(m1Speed, m2Speed); 
+    Serial1.println(m1Speed);
+    Serial1.println(m2Speed);
+    Serial1.println("");
+         
 }
