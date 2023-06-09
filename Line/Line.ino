@@ -7,7 +7,6 @@ int waardes[5];
 
 void setup() {
   Serial1.begin(9600);
-  
   linesensor.setup();
 }
 

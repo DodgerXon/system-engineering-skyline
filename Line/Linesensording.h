@@ -25,9 +25,12 @@ public:
   bool blijflinks;
   int maxSpeed = 360;
   int groeneSnelheid = 150;
+  int greenSpeedPercentage = 50;
   Zumo32U4LineSensors lineSensors;
   Zumo32U4Motors motors;
   Zumo32U4ButtonA ButtonA;
+  Zumo32U4ButtonB ButtonB;
+  Zumo32U4ButtonC ButtonC;
   Zumo32U4Buzzer buzzer;
 };
 
