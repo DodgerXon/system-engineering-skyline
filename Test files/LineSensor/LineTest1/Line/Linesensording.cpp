@@ -122,13 +122,6 @@ int Line::LineRijden(int Waardes1[]) {
       m2Speed = maxSpeed;
     }
 
-    int16_t greenThreshold = (grijs[1] + groen[0]) / 2; // Adjust the threshold based on your sensor calibration
-
-  if (sensorWaardes[1] > greenThreshold && sensorWaardes[2] > greenThreshold && sensorWaardes[3] > greenThreshold) {
-    m1Speed = m1Speed / 2;
-    m2Speed = m2Speed / 2;
-  }
-
     motors.setSpeeds(m1Speed, m2Speed); 
     Serial1.println(maxSpeed);
     Serial1.println("");
