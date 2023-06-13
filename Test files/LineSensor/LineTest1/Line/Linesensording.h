@@ -8,8 +8,10 @@ class Line {
 public:
   Line();
   void vindHoogsteLaagste(int[], int&, int&);
-  void setup();
-  int LineRijden(int[]);
+  void setup(int&, int&, int&, int&, int&, int&);
+  int LineRijdenzwart(int[]);
+  int LineRijdenGroen();
+  int LineRijdenBruin();
   int geefWaardes(int&, int&, int&, int&, int&);
   void lezen(int&, int&, int&, int&, int&);
 
@@ -25,7 +27,7 @@ public:
   bool blijflinks;
   int maxSpeed = 360;
   int groeneSnelheid = 150;
-  int greenSpeedPercentage = 50;
+  bool isGroen = false;
   Zumo32U4LineSensors lineSensors;
   Zumo32U4Motors motors;
   Zumo32U4ButtonA ButtonA;

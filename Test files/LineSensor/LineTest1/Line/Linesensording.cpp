@@ -30,7 +30,7 @@ void Line::lezen(int& pos0, int& pos1, int& pos2, int& pos3, int& pos4) {
     pos4 = sensorWaardes[4];
 }
 
-void Line::setup() {
+void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int& bruinmax, int& bruinmin) {
   lineSensors.initFiveSensors();
 
   Serial1.println("Calibreer zwart!");
@@ -64,6 +64,13 @@ void Line::setup() {
   vindHoogsteLaagste(sensorWaardes, wit[0], wit[1]);
   buzzer.play(">g32>>c32");
 
+  groenmax = groen[0];
+  groenmin = groen[1];
+  zwartmax = zwart[0];
+  zwartmin = zwart[1];
+  bruinmax = bruin[0];
+  bruinmin = bruin[1];
+
   Serial1.println("Calibratie voltooid! Druk knop 'A' om verder te gaan!");
   ButtonA.waitForButton();
 }
@@ -88,7 +95,7 @@ void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
 
 
 
-int Line::LineRijden(int Waardes1[]) {
+int Line::LineRijdenzwart(int Waardes1[]) {
  int lastError = 0;
 
   //lineSensors.read(sensorWaardes);
@@ -107,11 +114,11 @@ int Line::LineRijden(int Waardes1[]) {
     int m2Speed = maxSpeed - speedDifference;
 
     if (m1Speed < 0) {
-      m1Speed = 0;
+      m1Speed = -10;
     }
 
     if (m2Speed < 0) {
-      m2Speed = 0;
+      m2Speed = -10;
     } 
 
     if (m1Speed > maxSpeed) {
@@ -123,7 +130,51 @@ int Line::LineRijden(int Waardes1[]) {
     }
 
     motors.setSpeeds(m1Speed, m2Speed); 
-    Serial1.println(maxSpeed);
+    Serial1.println("Zwart");
     Serial1.println("");
          
+}
+
+int Line::LineRijdenGroen() {
+ int lastError = 0;
+
+  //lineSensors.read(sensorWaardes);
+
+    //Als er minimaal 1 sensor zwart detecteert
+    
+    int16_t position = lineSensors.readLine(sensorWaardes);
+
+    int16_t error = position - 2000;
+
+    int16_t speedDifference = error / 1 + 1 * (error - lastError);
+
+    lastError = error;
+
+    int m1Speed = 150 + speedDifference;
+    int m2Speed = 150 - speedDifference;
+
+    if (m1Speed < 0) {
+      m1Speed = -30;
+    }
+
+    if (m2Speed < 0) {
+      m2Speed = -30;
+    } 
+
+    if (m1Speed > 150) {
+      m1Speed = 150;
+    }
+
+    if (m2Speed > 150) {
+      m2Speed = 150;
+    }
+
+    motors.setSpeeds(m1Speed, m2Speed); 
+    Serial1.println("Groen");
+    Serial1.println("");
+         
+}
+
+int Line::LineRijdenBruin() {
+ motors.setSpeeds(0, 0);
 }
