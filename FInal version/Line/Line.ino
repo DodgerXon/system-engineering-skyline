@@ -12,7 +12,7 @@ int switchm = 0;
 
 void setup() {
   Serial1.begin(9600);
-  linesensor.setup(groen[0], groen[1], zwart[0], zwart[1], bruin[0], bruin[1]);
+  linesensor.setup(groen[0], groen[1], zwart[0], zwart[1], bruin[0], bruin[1], wit[0], wit[1]); // calibreert de verschillende kleuren, en returned de waarden die hiern
 }
 
 void loop() {
@@ -22,10 +22,10 @@ void loop() {
     if (waardes[i] <= zwart[1] && waardes[i] >= wit[0])  {
       switchm = 3;
     }
-    else if(waardes[i] <= groen[0] && waardes[i] >= groen[1]){
+    else if(waardes[i] <= groen[0] && waardes[i] >= groen[1])   {
       switchm = 1;
     } 
-    else if (waardes[i] <= bruin[0] && waardes[i] >= bruin[1]) {
+    else if (waardes[i] <= bruin[0] && waardes[i] >= bruin[1])  {
       switchm = 2;
     } 
   }

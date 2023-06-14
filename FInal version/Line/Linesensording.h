@@ -8,7 +8,7 @@ class Line {
 public:
   Line();
   void vindHoogsteLaagste(int[], int&, int&);
-  void setup(int&, int&, int&, int&, int&, int&);
+  void setup(int&, int&, int&, int&, int&, int&, int&, int&);
   int LineRijdenzwart(int[]);
   int LineRijdenGroen(int[]);
   int LineRijdenBruin(int[]);

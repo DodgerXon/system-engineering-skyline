@@ -30,7 +30,7 @@ void Line::lezen(int& pos0, int& pos1, int& pos2, int& pos3, int& pos4) {
     pos4 = sensorWaardes[4];
 }
 
-void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int& bruinmax, int& bruinmin) {
+void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int& bruinmax, int& bruinmin, int& witmax, int& witmin) {
   lineSensors.initFiveSensors();
 
   Serial1.println("Calibreer zwart!");
@@ -70,6 +70,8 @@ void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int
   zwartmin = zwart[1];
   bruinmax = bruin[0];
   bruinmin = bruin[1];
+  witmax = wit[0];
+  witmin = wit[1];
 
   Serial1.println("Calibratie voltooid! Druk knop 'A' om verder te gaan!");
   ButtonA.waitForButton();
@@ -130,9 +132,6 @@ int Line::LineRijdenzwart(int Waardes1[]) {
     }
 
     motors.setSpeeds(m1Speed, m2Speed); 
-    Serial1.println("Zwart");
-    Serial1.println("");
-         
 }
 
 int Line::LineRijdenGroen(int[]) {
@@ -169,14 +168,9 @@ int Line::LineRijdenGroen(int[]) {
       m2Speed = 150;
     }
 
-    motors.setSpeeds(m1Speed, m2Speed); 
-    Serial1.println("Groen");
-    Serial1.println("");
-         
+    motors.setSpeeds(m1Speed, m2Speed);         
 }
 
 int Line::LineRijdenBruin(int[]) {
  motors.setSpeeds(0, 0);
-     Serial1.println("Groen");
-    Serial1.println("");
 }
