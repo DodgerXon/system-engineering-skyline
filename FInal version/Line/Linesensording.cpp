@@ -1,24 +1,8 @@
-#include "Arduino.h"
-#include "HardwareSerial.h"
 #include "LineSensording.h"
-
 
 Line::Line() {
 
 }
-
-/*int Line::geefWaardes(int& pos0, int&pos1, int& pos2, int& pos3, int& pos4) {
-    for(int i=0; i <= 5; i++) {
-      Serial.print("Test");
-      Serial.println(sensorWaardes[i]);
-    }
-    pos0 = sensorWaardes[0];
-    pos1 = sensorWaardes[1];
-    pos2 = sensorWaardes[2];
-    pos3 = sensorWaardes[3];
-    pos4 = sensorWaardes[4];
-    return 0;
-}*/
 
 void Line::lezen(int& pos0, int& pos1, int& pos2, int& pos3, int& pos4) {
   lineSensors.read(sensorWaardes);
@@ -31,6 +15,7 @@ void Line::lezen(int& pos0, int& pos1, int& pos2, int& pos3, int& pos4) {
 }
 
 void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int& bruinmax, int& bruinmin, int& witmax, int& witmin) {
+  Serial1.begin(9600);
   lineSensors.initFiveSensors();
 
   Serial1.println("Calibreer zwart!");
@@ -77,6 +62,40 @@ void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int
   ButtonA.waitForButton();
 }
 
+void Line::correctie(int16_t s) {
+ 
+
+    //Als er minimaal 1 sensor zwart detecteert
+    
+    int16_t position = lineSensors.readLine(sensorWaardes);
+
+    int16_t error = position - 2000;
+
+    int16_t speedDifference = error / 1 + 1 * (error - lastError);
+
+    lastError = error;
+
+    int16_t m1Speed = maxSpeed + speedDifference;
+    int16_t m2Speed = maxSpeed - speedDifference;
+
+    if (m1Speed < 0) {
+      m1Speed = -10;
+    }
+
+    if (m2Speed < 0) {
+      m2Speed = -10;
+    } 
+
+    if (m1Speed > maxSpeed) {
+      m1Speed = maxSpeed;
+    }
+
+    if (m2Speed > maxSpeed) {
+      m2Speed = maxSpeed;
+    }
+    motors.setSpeeds(m1Speed, m2Speed); 
+}
+
 void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
   max = 0;
   min = 2000;
@@ -95,82 +114,21 @@ void Line::vindHoogsteLaagste(int sensorWaardes[], int& max, int& min) {
   Serial1.println(min);
 }
 
-
-
-int Line::LineRijdenzwart(int Waardes1[]) {
- int lastError = 0;
-
-  //lineSensors.read(sensorWaardes);
-
-    //Als er minimaal 1 sensor zwart detecteert
-    
-    int16_t position = lineSensors.readLine(sensorWaardes);
-
-    int16_t error = position - 2000;
-
-    int16_t speedDifference = error / 1 + 1 * (error - lastError);
-
-    lastError = error;
-
-    int m1Speed = maxSpeed + speedDifference;
-    int m2Speed = maxSpeed - speedDifference;
-
-    if (m1Speed < 0) {
-      m1Speed = -10;
-    }
-
-    if (m2Speed < 0) {
-      m2Speed = -10;
-    } 
-
-    if (m1Speed > maxSpeed) {
-      m1Speed = maxSpeed;
-    }
-
-    if (m2Speed > maxSpeed) {
-      m2Speed = maxSpeed;
-    }
-
-    motors.setSpeeds(m1Speed, m2Speed); 
+int Line::LineRijdenzwart() {
+    correctie(maxSpeed);
+    Serial1.println("zwart");
 }
 
-int Line::LineRijdenGroen(int[]) {
- int lastError = 0;
-
-  //lineSensors.read(sensorWaardes);
-
-    //Als er minimaal 1 sensor zwart detecteert
-    
-    int16_t position = lineSensors.readLine(sensorWaardes);
-
-    int16_t error = position - 2000;
-
-    int16_t speedDifference = error / 1 + 1 * (error - lastError);
-
-    lastError = error;
-
-    int m1Speed = 150 + speedDifference;
-    int m2Speed = 150 - speedDifference;
-
-    if (m1Speed < 0) {
-      m1Speed = -30;
-    }
-
-    if (m2Speed < 0) {
-      m2Speed = -30;
-    } 
-
-    if (m1Speed > 150) {
-      m1Speed = 150;
-    }
-
-    if (m2Speed > 150) {
-      m2Speed = 150;
-    }
-
-    motors.setSpeeds(m1Speed, m2Speed);         
+int Line::LineRijdenGroen() {
+    correctie(groeneSnelheid);
+    Serial1.println("groen");
 }
 
-int Line::LineRijdenBruin(int[]) {
- motors.setSpeeds(0, 0);
+int Line::LineRijdenBruin() {
+  motors.setSpeeds(0, 0);
+  Serial1.println("bruin");
 }
+
+bool Line::buttonC() {
+  return buttonc.getSingleDebouncedPress();
+}*/
