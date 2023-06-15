@@ -3,6 +3,13 @@
 Line linesensor;
 Line motors;
 
+Proximity prox;
+Zumo32U4Motors motors;
+
+int speedL = 200;
+int speedR = -200;
+char input = Serial1.read();
+
 int waardes[5];
 int zwart[2];
 int groen[2];
@@ -26,7 +33,9 @@ void loop() {
     } 
     else if (waardes[i] <= bruin[0] && waardes[i] >= bruin[1])  {
       switchm = 2;
-    } else if (linesensor.buttonc) {
+    } else if (input = 'p') {
+        input = Serial1.read();
+        prox.setup();
         switchm = 4;
         break;
     }
@@ -43,6 +52,29 @@ void loop() {
       linesensor.LineRijdenzwart();
       break;
       case 4:
+
+  prox.printReadingsToSerial();
+  motors.setLeftSpeed(speedL);
+  motors.setRightSpeed(speedR);   
+  
+  if(prox.giveReadingFrontLeft() > 2 || prox.giveReadingFrontRight() > 2) {
+    speedL = 0;
+    speedR = 0;
+    motors.setRightSpeed(speedR);
+    motors.setLeftSpeed(speedL);
+    //delay(1500);
+    speedL = 400;
+    speedR = 400;
+    motors.setRightSpeed(speedR);
+    motors.setLeftSpeed(speedL);
+    //delay(1500);
+  }
+  if(prox.giveReadingFrontLeft() == 0 || prox.giveReadingFrontRight() == 0){
+  speedL = 200;
+  speedR = -200;
+  motors.setLeftSpeed(speedL);
+  motors.setRightSpeed(speedR);
+  }
       
 
   }
