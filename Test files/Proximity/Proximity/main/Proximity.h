@@ -12,14 +12,14 @@ public:
 	Proximity();
 	void print();
 	void setup();
-  void detect();
-  void printReadingsToSerial();
-  int giveReadingFrontLeft();
-  int giveReadingFrontRight();
+	void detect();
+	void printReadingsToSerial();
+	int giveReadingFrontLeft();
+	int giveReadingFrontRight();
 
 private:
-  Zumo32U4ProximitySensors proximity;
-  String message;
+	Zumo32U4ProximitySensors proximity;
+	String message;
 };
 
 #endif
