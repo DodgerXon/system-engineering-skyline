@@ -25,8 +25,6 @@ private:
   String message;
   int speedL = 200;
   int speedR = -200;
-
-
 };
 
 #endif

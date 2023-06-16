@@ -47,7 +47,7 @@ void Proximity::uitvoeren() {
   motors.setLeftSpeed(speedL);
   motors.setRightSpeed(speedR);   
   
-  if(proximit.giveReadingFrontLeft() > 2 || proximit.giveReadingFrontRight() > 2) {
+  if(giveReadingFrontLeft() > 2 || giveReadingFrontRight() > 2) {
     speedL = 0;
     speedR = 0;
     motors.setRightSpeed(speedR);
@@ -59,7 +59,7 @@ void Proximity::uitvoeren() {
     motors.setLeftSpeed(speedL);
     //delay(1500);
   }
-  if(proximit.giveReadingFrontLeft() == 0 || proximit.giveReadingFrontRight() == 0){
+  if(giveReadingFrontLeft() == 0 || giveReadingFrontRight() == 0){
   speedL = 200;
   speedR = -200;
   motors.setLeftSpeed(speedL);

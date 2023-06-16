@@ -22,6 +22,7 @@ void setup() {
 }
 
 void loop() {
+  input = Serial1.read();
   linesensor.lezen(waardes[0], waardes[1], waardes[2], waardes[3], waardes[4]);
  
   for (int i = 0; i < 5; i++) {
@@ -33,11 +34,10 @@ void loop() {
     } 
     else if (waardes[i] <= bruin[0] && waardes[i] >= bruin[1])  {
       switchm = 2;
-    } else if (input = 'p') {
-        input = Serial1.read();
+    } 
+    else if (input == 'p') {
         prox.setup();
         switchm = 4;
-        break;
     }
   }
 
@@ -51,11 +51,10 @@ void loop() {
     case 3:
       linesensor.LineRijdenzwart();
       break;
-      case 4:
-    prox.printReadingsToSerial();
-    prox.uitvoeren();  
+    case 4:
+      prox.printReadingsToSerial();
+      prox.uitvoeren();
+    break;
   }
-  // for (int i = 0; i < 5; i++) {
-  //   Serial1.println(waardes[i]);
-  // }
+  Serial1.println(switchm);
 }
