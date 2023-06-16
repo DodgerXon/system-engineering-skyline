@@ -128,7 +128,3 @@ int Line::LineRijdenBruin() {
   motors.setSpeeds(0, 0);
   Serial1.println("bruin");
 }
-
-bool Line::buttonC() {
-  return buttonc.getSingleDebouncedPress();
-}*/

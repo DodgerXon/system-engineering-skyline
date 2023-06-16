@@ -1,10 +1,10 @@
 #include "Linesensording.h"
+#include "Proximity.h"
 
 Line linesensor;
 Line motors;
 
 Proximity prox;
-Zumo32U4Motors motors;
 
 int speedL = 200;
 int speedR = -200;
@@ -52,31 +52,8 @@ void loop() {
       linesensor.LineRijdenzwart();
       break;
       case 4:
-
-  prox.printReadingsToSerial();
-  motors.setLeftSpeed(speedL);
-  motors.setRightSpeed(speedR);   
-  
-  if(prox.giveReadingFrontLeft() > 2 || prox.giveReadingFrontRight() > 2) {
-    speedL = 0;
-    speedR = 0;
-    motors.setRightSpeed(speedR);
-    motors.setLeftSpeed(speedL);
-    //delay(1500);
-    speedL = 400;
-    speedR = 400;
-    motors.setRightSpeed(speedR);
-    motors.setLeftSpeed(speedL);
-    //delay(1500);
-  }
-  if(prox.giveReadingFrontLeft() == 0 || prox.giveReadingFrontRight() == 0){
-  speedL = 200;
-  speedR = -200;
-  motors.setLeftSpeed(speedL);
-  motors.setRightSpeed(speedR);
-  }
-      
-
+    prox.printReadingsToSerial();
+    prox.uitvoeren();  
   }
   // for (int i = 0; i < 5; i++) {
   //   Serial1.println(waardes[i]);

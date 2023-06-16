@@ -27,7 +27,6 @@ public:
   
   bool blijflinks;
   bool blijfrechts;
-  bool buttonc
   bool isGroen = false;
   int sensorWaardes[5];
   int zwart[2];

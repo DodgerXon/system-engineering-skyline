@@ -11,7 +11,7 @@ void Proximity::detect() {
 void Proximity::setup() {
   Serial1.begin(9600);
   Wire.begin();
-  proximity.initThreeSensors();
+  proximit.initThreeSensors();
   message = "Setup success";
   Serial1.print(message);
 }
@@ -23,21 +23,46 @@ void Proximity::print() {
 
 void Proximity::printReadingsToSerial()
 {
-  proximity.read();
+  proximit.read();
   static char buffer[80];
   sprintf(buffer, "%d %d \n",
-    proximity.countsFrontWithLeftLeds(),
-    proximity.countsFrontWithRightLeds()
+    proximit.countsFrontWithLeftLeds(),
+    proximit.countsFrontWithRightLeds()
   );
   Serial1.print(buffer);
 }
 
 int Proximity::giveReadingFrontLeft() {
-  int frontleft = proximity.countsFrontWithLeftLeds();
+  int frontleft = proximit.countsFrontWithLeftLeds();
   return frontleft;
 }
 
 int Proximity::giveReadingFrontRight() {
-  int frontright = proximity.countsFrontWithRightLeds();
+  int frontright = proximit.countsFrontWithRightLeds();
   return frontright;
+}
+
+void Proximity::uitvoeren() {
+  
+  motors.setLeftSpeed(speedL);
+  motors.setRightSpeed(speedR);   
+  
+  if(proximit.giveReadingFrontLeft() > 2 || proximit.giveReadingFrontRight() > 2) {
+    speedL = 0;
+    speedR = 0;
+    motors.setRightSpeed(speedR);
+    motors.setLeftSpeed(speedL);
+    //delay(1500);
+    speedL = 400;
+    speedR = 400;
+    motors.setRightSpeed(speedR);
+    motors.setLeftSpeed(speedL);
+    //delay(1500);
+  }
+  if(proximit.giveReadingFrontLeft() == 0 || proximit.giveReadingFrontRight() == 0){
+  speedL = 200;
+  speedR = -200;
+  motors.setLeftSpeed(speedL);
+  motors.setRightSpeed(speedR);
+  }
 }
