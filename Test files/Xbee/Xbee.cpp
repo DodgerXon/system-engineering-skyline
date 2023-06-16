@@ -1,17 +1,17 @@
 #include "Xbee.h" // de header file word ge-include
 
-XBeeBesturing::XBeeBesturing() {   //constructeur 
-  snelheidLinks = 0;  //Hier zet ik beide motoren op 0 "startwaarde"
-  snelheidRechts = 0;
+XBeeBesturing::XBeeBesturing() {   //constructeur XbeeBesturing bouwd de klasse XbeeBesturing
+  motors.setLeftSpeed(snelheidLinks);
+  motors.setRightSpeed(snelheidRechts);
 }
 
 void XBeeBesturing::setup() {
-  Serial1.begin(9600); // de serial1 zorgt ervoor dat de connectie via de Xbee gaat.
+  Serial1.begin(9600); // de serial1 zorgt ervoor dat de communicatie via de Xbee gaat.
   Serial.begin(9600); // mocht ik ooit iets willen testen in de toekomst via de serial monitor laat ik de normale serial erin
 }
 
-void XBeeBesturing::XbeeInput() { // methode die de input via de serial1 inleest en vertaald naar input waarde
-  if (Serial1.available()) {      // de input waarde is dus de waarde die de gebruiker in toets 
+void XBeeBesturing::XbeeInput() { // Deze methode vertaald de input vanaf de XCTU naar een instructie die de ZUMO moet voltooien
+  if (Serial1.available()) {      // de input waarde is dus de waarde die de gebruiker in toets
     input=Serial1.read();
    
     if (input == 'w') {   // als input gelijk is aan w dan volle snelheid vooruit
@@ -44,15 +44,13 @@ void XBeeBesturing::XbeeInput() { // methode die de input via de serial1 inleest
     Serial1.println("stop!!"); //hier heb ik een beschrijving van de actie die de gebruiker kan zien in XCTU
     //delay(100);
     }
-
-    if (snelheidLinks > 400) snelheidLinks = 400; //veiligheidswaarde zodat de snelheid nooit meer kan zijn dan 400
-    if (snelheidLinks < -400) snelheidLinks = -400;//veiligheidswaarde zodat de snelheid nooit minder kan zijn dan -400
-    if (snelheidRechts > 400) snelheidRechts = 400;//veiligheidswaarde zodat de snelheid nooit meer kan zijn dan 400
-    if (snelheidRechts < -400) snelheidRechts = -400;//veiligheidswaarde zodat de snelheid nooit minder kan zijn dan -400
-    motors.setLeftSpeed(snelheidLinks);
-    motors.setRightSpeed(snelheidRechts);
+  motors.setLeftSpeed(snelheidLinks);
+  motors.setRightSpeed(snelheidRechts);
+  
+    
       
     }
     }
+
   
 

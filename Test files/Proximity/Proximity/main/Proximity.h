@@ -10,9 +10,7 @@
 class Proximity {
 public:
 	Proximity();
-	void print();
 	void setup();
-	void detect();
 	void printReadingsToSerial();
 	int giveReadingFrontLeft();
 	int giveReadingFrontRight();
