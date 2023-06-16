@@ -1,10 +1,13 @@
 #include "Linesensording.h"
 #include "Proximity.h"
+#include "IMU.h"
 
 Line linesensor;
 Line motors;
 
 Proximity prox;
+
+IMU imusensor;
 
 int speedL = 200;
 int speedR = -200;
@@ -15,10 +18,12 @@ int zwart[2];
 int groen[2];
 int bruin[2];
 int wit[2];
+int grijs[2];
 int switchm = 0;
 
 void setup() {
-  linesensor.setup(groen[0], groen[1], zwart[0], zwart[1], bruin[0], bruin[1], wit[0], wit[1]); // calibreert de verschillende kleuren, en returned de waarden die hiern
+  linesensor.setup(groen[0], groen[1], zwart[0], zwart[1], bruin[0], bruin[1], wit[0], wit[1], grijs[0], grijs[1]); // calibreert de verschillende kleuren, en returned de waarden die hiern
+  imusensor.klaarmaken();
 }
 
 void loop() {
@@ -39,6 +44,12 @@ void loop() {
         prox.setup();
         switchm = 4;
     }
+    else if (waardes[i] <= grijs[0] && waardes[i] >=  grijs[1]){
+      imusensor.klaarmaken();
+      switchm = 5;
+
+
+    }
   }
 
   switch(switchm) {
@@ -54,6 +65,11 @@ void loop() {
     case 4:
       prox.printReadingsToSerial();
       prox.uitvoeren();
+    break;
+    case 5:
+      imusensor.lezen();
+      imusensor.printen();
+      imusensor.balans();
     break;
   }
   Serial1.println(switchm);

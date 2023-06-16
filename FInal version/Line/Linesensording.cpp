@@ -14,7 +14,7 @@ void Line::lezen(int& pos0, int& pos1, int& pos2, int& pos3, int& pos4) {
     pos4 = sensorWaardes[4];
 }
 
-void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int& bruinmax, int& bruinmin, int& witmax, int& witmin) {
+void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int& bruinmax, int& bruinmin, int& witmax, int& witmin, int& grijsmax, int& grijsmin) {
   Serial1.begin(9600);
   lineSensors.initFiveSensors();
 
@@ -57,6 +57,8 @@ void Line::setup(int& groenmax, int& groenmin, int& zwartmax, int& zwartmin, int
   bruinmin = bruin[1];
   witmax = wit[0];
   witmin = wit[1];
+  grijsmax = grijs[0];
+  grijsmin = grijs[1];
 
   Serial1.println("Calibratie voltooid! Druk knop 'A' om verder te gaan!");
   ButtonA.waitForButton();
