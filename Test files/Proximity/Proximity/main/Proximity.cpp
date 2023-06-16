@@ -3,21 +3,12 @@
 Proximity::Proximity():message("") {
 }
 
-void Proximity::detect() {
-
-}
-
 void Proximity::setup() {
   Serial.begin(9600);
   Wire.begin();
   proximity.initThreeSensors();
   message = "Setup success";
   Serial.print(message);
-}
-
-void Proximity::print() {
-  message = "Returning the print function";
-  Serial.println(message);
 }
 
 void Proximity::printReadingsToSerial()
